@@ -43,6 +43,11 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="oZ4-2f-Tue" secondAttribute="height" multiplier="2:3" id="2KW-K9-TjI"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше, чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uR4-3R-pcc" userLabel="Question Label">
                                         <rect key="frame" x="0.0" y="624.5" width="374" height="17.5"/>
@@ -65,9 +70,6 @@
                                                     <color key="titleColor" name="YP Black"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius ">
-                                                        <integer key="value" value="15"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius ">
                                                         <integer key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
@@ -97,6 +99,11 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </stackView>
                                 </subviews>
                             </stackView>
@@ -113,7 +120,9 @@
                     <connections>
                         <outlet property="counterLabel" destination="yxq-od-uCq" id="wrO-Ce-ras"/>
                         <outlet property="imageView" destination="oZ4-2f-Tue" id="73v-TC-wjU"/>
+                        <outlet property="noButton" destination="fUR-eL-h1B" id="wKN-oL-egc"/>
                         <outlet property="textLabel" destination="uR4-3R-pcc" id="duf-Ig-5AK"/>
+                        <outlet property="yesButton" destination="wHG-FR-ftu" id="nSx-1n-rCf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

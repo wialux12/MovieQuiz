@@ -7,6 +7,8 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var textLabel: UILabel!
     @IBOutlet weak private var counterLabel: UILabel!
+    @IBOutlet weak var noButton: UIButton!
+    @IBOutlet weak var yesButton: UIButton!
     
     // MARK: - Private Properties
     
@@ -18,7 +20,14 @@ final class MovieQuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+       let firstQuestion = questions[currentQuestionIndex]
+        let viewModel = convert(model: firstQuestion)
+        show(quiz: viewModel)
+        
+        imageView.layer.cornerRadius = 20
+        
+        yesButton.layer.cornerRadius = 15
+        noButton.layer.cornerRadius = 15
     }
     
     // MARK: - Private Methods
