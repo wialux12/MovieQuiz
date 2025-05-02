@@ -12,7 +12,7 @@ final class MovieQuizViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private let questions: [QuizQuestion] = QuizQuestion.mockQuestions
+    private let questions: [QuizQuestion] = QuestionFactory.mockQuestions
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
     
