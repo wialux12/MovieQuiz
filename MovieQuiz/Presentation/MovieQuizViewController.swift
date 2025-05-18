@@ -31,7 +31,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory.requestNextQuestion()
         
         imageView.layer.cornerRadius = 20
-        
         yesButton.layer.cornerRadius = 15
         noButton.layer.cornerRadius = 15
         
@@ -41,9 +40,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // MARK: - QuestionFactoryDelegate
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else {
-                return
-            }
+        guard let question else { return }
 
         currentQuestion = question
         let viewModel = convert(model: question)
@@ -114,9 +111,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             statisticService.store(correct: correctAnswers, total: questionsAmount)
             
             let bestGame = statisticService.bestGame
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yy HH:mm"
-            
             let message = """
                    Ваш результат: \(correctAnswers)/\(questionsAmount)
                    Количество сыгранных квизов: \(statisticService.gamesCount)
@@ -150,7 +144,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
     }
-
+    
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yy HH:mm"
+        return formatter
+    }()
+    
     // MARK: - IBAction
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {

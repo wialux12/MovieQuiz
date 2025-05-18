@@ -63,6 +63,4 @@ final class StatisticService: StatisticServiceProtocol {
                     save(bestGame: currentGame)
                 }
     }
-    
-    
 }
