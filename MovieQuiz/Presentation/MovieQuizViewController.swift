@@ -40,21 +40,23 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
-                return
-            }
+            showNetworkError(message: "Не удалось загрузить вопрос")
+            return
+        }
 
         currentQuestion = question
         let viewModel = convert(model: question)
         
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
+            self?.activityIndicator.stopAnimating() // Остановка индикатора
         }
     }
     
     // MARK: - Private Methods
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        let image = UIImage(data: model.image) ?? UIImage(named: "placeholder")!
+        let image = model.image
         
         return QuizStepViewModel(
             image: image,
@@ -157,7 +159,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func showNetworkError(message: String) {
-        activityIndicator.isHidden = false // скрываем индикатор загрузки
+        activityIndicator.stopAnimating() // скрываем индикатор загрузки
         let model = AlertModel(title: "Ошибка",
                                message: message,
                                buttonText: "Попробуйте ещё раз") { [weak self] in
