@@ -9,6 +9,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet weak private var counterLabel: UILabel!
     @IBOutlet weak var noButton: UIButton!
     @IBOutlet weak var yesButton: UIButton!
+    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Private Properties
     
@@ -18,12 +19,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var currentQuestion: QuizQuestion?
     private var currentQuestionIndex: Int = 0
     private var correctAnswers = 0
+    private lazy var alertPresenter = AlertPresenter(viewController: self)
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+<<<<<<< HEAD
         let questionFactory = QuestionFactory()
         questionFactory.setup(delegate: self)
         self.questionFactory = questionFactory
@@ -31,33 +34,46 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory.requestNextQuestion()
         
         imageView.layer.cornerRadius = 20
+=======
+        showLoadingIndicator()
+        questionFactory?.loadData()
+        
+>>>>>>> sprint_06
         yesButton.layer.cornerRadius = 15
         noButton.layer.cornerRadius = 15
-        
-        let statisticService = StatisticService()
     }
     
     // MARK: - QuestionFactoryDelegate
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
+<<<<<<< HEAD
         guard let question else { return }
+=======
+        guard let question = question else {
+            showNetworkError(message: "Не удалось загрузить вопрос")
+            return
+        }
+>>>>>>> sprint_06
 
         currentQuestion = question
         let viewModel = convert(model: question)
         
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
+            self?.activityIndicator.stopAnimating() // Остановка индикатора
         }
     }
     
     // MARK: - Private Methods
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        let questionStep = QuizStepViewModel(
-            image: UIImage(named: model.image) ?? UIImage(),
+        let image = model.image
+        
+        return QuizStepViewModel(
+            image: image,
             question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-        return questionStep
+            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)"
+        )
     }
     
     private func showAnswerResult(isCorrect: Bool) {
@@ -144,12 +160,43 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
     }
+<<<<<<< HEAD
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yy HH:mm"
         return formatter
     }()
+=======
+
+    private func showLoadingIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func showNetworkError(message: String) {
+        activityIndicator.stopAnimating() // скрываем индикатор загрузки
+        let model = AlertModel(title: "Ошибка",
+                               message: message,
+                               buttonText: "Попробуйте ещё раз") { [weak self] in
+            guard let self = self else { return }
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
+        }
+        
+        alertPresenter.show(alert: model)
+    }
+    
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true
+            questionFactory?.requestNextQuestion()
+    }
+
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(message: error.localizedDescription)
+    }
+>>>>>>> sprint_06
     
     // MARK: - IBAction
     

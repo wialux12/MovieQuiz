@@ -28,6 +28,7 @@ final class StatisticService: StatisticServiceProtocol {
             storage.set(newValue, forKey: Keys.gamesCount.rawValue)
         }
     }
+    
     var bestGame: GameResult {
         get {
             guard let data = storage.data(forKey: Keys.bestGame.rawValue),
@@ -40,6 +41,7 @@ final class StatisticService: StatisticServiceProtocol {
             storage.set(newValue, forKey: "bestGame")
         }
     }
+    
     var totalAccuracy: Double {
         let correct = storage.integer(forKey: Keys.correct.rawValue)
                 let total = storage.integer(forKey: Keys.totalQuestions.rawValue)
