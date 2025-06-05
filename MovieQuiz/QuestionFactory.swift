@@ -9,11 +9,11 @@ class QuestionFactory: QuestionFactoryProtocol {
             self.delegate = delegate
         }
     
+    private var movies: [MostPopularMovie] = []
+    
     func setup(delegate: QuestionFactoryDelegate) {
         self.delegate = delegate
     }
-    
-    private var movies: [MostPopularMovie] = []
     
     func loadData() {
         moviesLoader.loadMovies { [weak self] result in
